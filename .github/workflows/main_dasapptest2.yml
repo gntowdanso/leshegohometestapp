@@ -60,14 +60,6 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6E35130156C240C28ED51F0C017DE6A5 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_20E67040EC8842AFAA4394A801CD66A9 }}
 
-      - name: Force App Configuration (CLI)
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            RG=$(az webapp list --query "[?name=='dasapptest2'].resourceGroup" -o tsv)
-            echo "Found RG: $RG"
-            az webapp config set --resource-group $RG --name dasapptest2 --linux-fx-version "NODE|20-lts" || true
-
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
